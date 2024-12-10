@@ -29,7 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AppProvider>{children}</AppProvider>
+        <AppProvider>
+          {children}
+          {/* <div className="w-full h-auto">
+            <div className="absolute top-20 left-0 w-full h-[100px] bg-gradient-to-r from-blue-500 to-purple-500 blur-[150px] transform rotate-45"></div>
+          </div> */}
+        </AppProvider>
       </body>
     </html>
   );

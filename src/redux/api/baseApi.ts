@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
+import { RootState } from '../store';
 
 const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
 
@@ -13,8 +14,9 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     credentials: 'include',
-    prepareHeaders: (headers) => {
-      const token = Cookies.get('accessToken');
+    prepareHeaders: (headers, { getState }) => {
+      // const token = Cookies.get('accessToken');
+      const token = (getState() as RootState).auth.token;
 
       if (token) {
         headers.set('Authorization', `${token}`);
@@ -23,6 +25,6 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: [],
+  tagTypes: ['auth', 'user', 'lessons'],
   endpoints: () => ({}),
 });
