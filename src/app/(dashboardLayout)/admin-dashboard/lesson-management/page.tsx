@@ -1,5 +1,10 @@
 import React from 'react';
+import { LessonTable } from '../../_components/modules/lessonManagement/lessonTable';
 
 export default function LessonManagementPage() {
-  return <div>LessonManagementPage</div>;
+  return (
+    <div>
+      <LessonTable />
+    </div>
+  );
 }
