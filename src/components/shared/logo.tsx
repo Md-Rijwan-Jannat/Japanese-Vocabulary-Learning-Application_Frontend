@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png'; // Update with the correct path to you
 
 const Logo = () => {
   return (
-    <Link href="/" className="flex items-center gap-2">
+    <Link href="/lessons" className="flex items-center gap-2">
       <motion.div
         className="flex items-center"
         whileHover={{ scale: 1.1 }}

@@ -19,8 +19,8 @@ const Footer = () => {
   };
 
   return (
-    <footer className=" text-black">
-      <div className="mx-auto px-4 py-8">
+    <footer className="text-black">
+      <div className="mx-auto py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <Logo />

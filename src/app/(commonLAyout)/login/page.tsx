@@ -64,7 +64,7 @@ export default function Login() {
   };
 
   return (
-    <div className="h-auto my-10 md:my-2 lg:h-[70vh] xl:h-screen flex m-auto">
+    <div className="h-auto my-10 md:my-8 lg:h-[70vh] xl:h-screen flex m-auto">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8 w-full">
         <div className="w-full">
           <Image
@@ -76,68 +76,71 @@ export default function Login() {
           />
         </div>
 
-        <div className="bg-gradient-to-r from-blue-500 to-purple-500 absolute h-[130px] w-[350px] blur-[200px] rotate-45 right-5"></div>
-        <Card className="w-full bg-white/20 shadow-md backdrop-blur-sm relative">
-          <CardHeader>
-            <CardTitle>ログイン (Login)</CardTitle>
-            <CardDescription>
-              Sign in to access your personalized learning experience.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div>
-                <Label htmlFor="email">メールアドレス (Email)</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  {...register('email')}
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.email.message}
-                  </p>
+        <div className="relative max-w-2xl lg:w-full">
+          <div className="bg-gradient-to-r from-blue-300 to-purple-500 absolute h-[130px] w-[350px] blur-2xl rotate-45"></div>
+
+          <Card className="w-full bg-white/20 shadow-md backdrop-blur-3xl">
+            <CardHeader>
+              <CardTitle>ログイン (Login)</CardTitle>
+              <CardDescription>
+                Sign in to access your personalized learning experience.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                <div>
+                  <Label htmlFor="email">メールアドレス (Email)</Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    {...register('email')}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="password">パスワード (Password)</Label>
+                  <Input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    {...register('password')}
+                  />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
+                {errorMessage && (
+                  <p className="text-red-500 text-sm">{errorMessage}</p>
                 )}
-              </div>
-              <div>
-                <Label htmlFor="password">パスワード (Password)</Label>
-                <Input
-                  type="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  {...register('password')}
-                />
-                {errors.password && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
-              {errorMessage && (
-                <p className="text-red-500 text-sm">{errorMessage}</p>
-              )}
-              <div className="flex items-center justify-center">
-                <Button
-                  type="submit"
-                  className={`${buttonStyle}`}
-                  disabled={isLoading}
+                <div className="flex items-center justify-center">
+                  <Button
+                    type="submit"
+                    className={`${buttonStyle}`}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'ログイン中...' : 'ログイン (Login)'}
+                  </Button>
+                </div>
+              </form>
+              <p className="flex items-center gap-2 mt-5 justify-center">
+                You haven't signed up yet?
+                <Link
+                  className="text-blue-500 hover:text-blue-600"
+                  href="/sign-up"
                 >
-                  {isLoading ? 'ログイン中...' : 'ログイン (Login)'}
-                </Button>
-              </div>
-            </form>
-            <p className="flex items-center gap-2 mt-5 justify-center">
-              You haven't signed up yet?
-              <Link
-                className="text-blue-500 hover:text-blue-600"
-                href="/sign-up"
-              >
-                Sign Up
-              </Link>
-            </p>
-          </CardContent>
-        </Card>
+                  Sign Up
+                </Link>
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

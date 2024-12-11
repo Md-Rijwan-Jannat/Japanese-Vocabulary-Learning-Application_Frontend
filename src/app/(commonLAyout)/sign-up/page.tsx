@@ -123,12 +123,13 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
+    <div className="h-fit relative">
+      <div className="mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="backdrop-blur-3xl bg-white/20 rounded-md px-3 py-5 border mb-8"
         >
           <h1 className="text-4xl font-bold mb-4 text-center">
             ようこそ <span className="text-blue-600">Learn Japanese</span> へ！
@@ -145,7 +146,7 @@ export default function SignUpPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="bg-white/80 backdrop-blur-sm">
+            <Card className="bg-white/20 backdrop-blur-3xl">
               <CardHeader>
                 <CardTitle>新規登録 (Sign Up)</CardTitle>
                 <CardDescription>
@@ -277,8 +278,8 @@ export default function SignUpPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 absolute h-[130px] w-[350px] blur-[150px]"></div>
-            <Card className="bg-white/20 backdrop-blur-sm relative">
+            <div className="bg-gradient-to-r from-blue-500 to-purple-500 absolute h-[130px] w-[350px] blur-3xl"></div>
+            <Card className="bg-white/20 backdrop-blur-3xl relative">
               <CardHeader>
                 <CardTitle>日本語を学ぶ理由 (Why Learn Japanese?)</CardTitle>
               </CardHeader>
@@ -404,7 +405,7 @@ export default function SignUpPage() {
               </CardContent>
             </Card>
 
-            <Card className="mt-6 bg-white/20 backdrop-blur-sm ">
+            <Card className="mt-8 bg-white/20 backdrop-blur-sm ">
               <CardHeader>
                 <CardTitle>学習方法 (How You'll Learn)</CardTitle>
               </CardHeader>
@@ -442,9 +443,9 @@ export default function SignUpPage() {
             </Card>
           </motion.div>
         </div>
-        <div className="bg-gradient-to-r from-blue-500 to-purple-500 absolute h-[130px] w-[350px] blur-[150px] rotate-45"></div>
+        <div className="bg-gradient-to-r from-blue-300 to-purple-300 absolute h-[230px] w-[350px] blur-3xl -rotate-12"></div>
         <motion.section
-          className="mt-12 text-center"
+          className="mt-8 text-center bg-white/20 backdrop-blur-3xl rounded-md border px-3 py-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}

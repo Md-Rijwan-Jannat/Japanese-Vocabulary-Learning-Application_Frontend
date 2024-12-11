@@ -109,7 +109,7 @@ export default function LessonDetails({ lessonId }: { lessonId: string }) {
     <div className="min-h-screen flex flex-col">
       <BackButton />
       <main className="flex-grow px-4">
-        <h1 className="text-2xl text-blue-600 mt-5 mb-16 text-start drop-shadow-md">
+        <h1 className="text-2xl text-blue-600 my-5 text-start drop-shadow-md">
           {lesson.name}
         </h1>
 
@@ -128,7 +128,7 @@ export default function LessonDetails({ lessonId }: { lessonId: string }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -50 }}
                 transition={{ duration: 0.5 }}
-                className="backdrop-blur-[160px] bg-transparent inset-0 rounded-lg border shadow-lg p-6 flex flex-col opacity-90 group-hover:opacity-100 transition-opacity duration-300 h-full max-w-5xl my-10 mx-auto"
+                className="backdrop-blur-[160px] bg-white/50 inset-0 rounded-lg border shadow-lg p-6 flex flex-col opacity-90 group-hover:opacity-100 transition-opacity duration-300 h-full max-w-5xl my-10 mx-auto"
               >
                 <h2
                   className="text-3xl font-bold text-gray-700 cursor-pointer hover:text-purple-500 transition flex items-center justify-center gap-2 mb-3"
@@ -152,7 +152,7 @@ export default function LessonDetails({ lessonId }: { lessonId: string }) {
                   {currentVocab.whenToSay}
                 </p>
               </motion.div>
-              <div className=" border px-3 py-2 rounded-md text-green-600 text-xl flex items-center justify-center gap-3 w-full md:w-1/2 mx-auto">
+              <div className="border bg-green-100 border-green-500 px-3 py-2 rounded-md text-green-600 text-xl flex items-center justify-center gap-3 w-full md:w-1/2 mx-auto">
                 This lesson is complete <CircleCheckBig />{' '}
               </div>
             </div>

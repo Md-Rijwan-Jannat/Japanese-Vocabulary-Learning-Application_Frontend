@@ -51,10 +51,10 @@ export default function Lessons() {
     <div className="min-h-screen flex flex-col">
       <BackButton />
       <main className="flex-grow mx-auto px-4">
-        <h1 className="text-2xl text-blue-600 mt-5 mb-16 text-start drop-shadow-md">
+        <h1 className="text-2xl text-blue-600 mt-5 mb-10 text-start drop-shadow-md">
           Learn Japanese - Lessons
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {lessons.map((lesson: TLesson) => (
             <div key={lesson._id} className="relative group">
               {/* Gradient Background */}

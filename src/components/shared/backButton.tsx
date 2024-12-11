@@ -14,7 +14,7 @@ export default function NavigationButtons() {
         onClick={() => router.back()}
         className={`${buttonStyle} flex items-center justify-center`}
       >
-        <ChevronLeft className="mr-2 text-lg" />
+        <ChevronLeft />
         <span className="text-sm font-medium">Back</span>
       </Button>
 
@@ -24,7 +24,7 @@ export default function NavigationButtons() {
         className={`${buttonStyle} flex items-center justify-center`}
       >
         <span className="text-sm font-medium">Forward</span>
-        <ChevronRight className="ml-2 text-lg" />
+        <ChevronRight />
       </Button>
     </div>
   );

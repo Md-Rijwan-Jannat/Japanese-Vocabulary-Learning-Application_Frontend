@@ -14,10 +14,10 @@ export default function CommonLayout({ children }: TCommonLayoutProps) {
       <header className="bg-white border-white border-b-2">
         <Navbar />
       </header>
-      <main>
+      <main className="h-fit xl:h-screen">
         <Container>{children}</Container>
       </main>
-      <footer className="bg-white border border-t">
+      <footer className="border-t">
         <Container>
           <Footer />
         </Container>
