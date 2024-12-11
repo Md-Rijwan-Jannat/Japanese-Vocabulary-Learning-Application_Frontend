@@ -4,8 +4,8 @@ const lessonApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Fetch all lessons
     getAllLessons: builder.query({
-      query: () => ({
-        url: '/lessons',
+      query: (query) => ({
+        url: `/lessons?${query}`,
         method: 'GET',
       }),
       providesTags: ['lessons'],
@@ -26,6 +26,15 @@ const lessonApi = baseApi.injectEndpoints({
         url: '/lessons',
         method: 'POST',
         body: data,
+      }),
+      invalidatesTags: ['lessons'],
+    }),
+
+    // Complete  lesson
+    completeLesson: builder.mutation({
+      query: (lessonId) => ({
+        url: `/lessons/${lessonId}/complete`,
+        method: 'PUT',
       }),
       invalidatesTags: ['lessons'],
     }),
@@ -56,6 +65,7 @@ export const {
   useGetAllLessonsQuery,
   useGetLessonByIdQuery,
   useCreateLessonMutation,
+  useCompleteLessonMutation,
   useUpdateLessonMutation,
   useDeleteLessonMutation,
 } = lessonApi;

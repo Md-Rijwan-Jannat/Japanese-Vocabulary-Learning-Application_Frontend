@@ -11,15 +11,13 @@ export default function CommonLayout({ children }: TCommonLayoutProps) {
   return (
     <div>
       {' '}
-      <header className="bg-white border border-b">
-        <Container>
-          <Navbar />
-        </Container>
+      <header className="bg-white border-white border-b-2">
+        <Navbar />
       </header>
       <main>
         <Container>{children}</Container>
       </main>
-      <footer className="bg-primary">
+      <footer className="bg-white border border-t">
         <Container>
           <Footer />
         </Container>

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
+import Logo from './logo';
+import { buttonStyle } from '@/style';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -17,11 +19,11 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className=" text-black">
+      <div className="mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
-            <h3 className="text-xl font-bold">Learn Japanese</h3>
+            <Logo />
             <p className="text-sm">
               Embark on your journey to master the Japanese language and
               culture.
@@ -61,26 +63,10 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
-            <div className="flex space-x-4">
-              <a href="#" className="hover:text-secondary transition-colors">
-                <FaFacebook size={24} />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors">
-                <FaTwitter size={24} />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors">
-                <FaInstagram size={24} />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors">
-                <FaYoutube size={24} />
-              </a>
-            </div>
-          </div>
+
           <div>
             <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
-            <form onSubmit={handleSubmit} className="space-y-2">
+            <form onSubmit={handleSubmit} className="flex gap-2 items-center">
               <Input
                 type="email"
                 placeholder="Enter your email"
@@ -89,10 +75,27 @@ const Footer = () => {
                 required
                 className="bg-primary-foreground text-primary"
               />
-              <Button type="submit" variant="secondary" className="w-full">
+              <Button type="submit" variant="secondary" className={buttonStyle}>
                 Subscribe
               </Button>
             </form>
+            <div>
+              <h4 className="text-lg font-semibold mb-4  mt-5">Contact Us</h4>
+              <div className="flex space-x-4 gap-5">
+                <a href="#" className="hover:text-purple-500 transition-colors">
+                  <FaFacebook size={24} />
+                </a>
+                <a href="#" className="hover:text-purple-500 transition-colors">
+                  <FaTwitter size={24} />
+                </a>
+                <a href="#" className="hover:text-purple-500 transition-colors">
+                  <FaInstagram size={24} />
+                </a>
+                <a href="#" className="hover:text-purple-500 transition-colors">
+                  <FaYoutube size={24} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         <div className="mt-8 pt-4 border-t border-primary-foreground/10 text-center">

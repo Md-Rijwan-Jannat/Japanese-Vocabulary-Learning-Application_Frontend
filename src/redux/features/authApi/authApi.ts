@@ -21,13 +21,6 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['auth'],
     }),
-    getMe: builder.query({
-      query: () => ({
-        url: '/profile',
-        method: 'GET',
-      }),
-      providesTags: ['auth'],
-    }),
     forgotPassword: builder.mutation({
       query: (credentials) => {
         return {
@@ -56,7 +49,6 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
-  useGetMeQuery,
   useForgotPasswordMutation,
   useResetPasswordMutation,
 } = authApi;

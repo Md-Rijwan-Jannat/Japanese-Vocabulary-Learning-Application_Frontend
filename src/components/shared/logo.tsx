@@ -19,7 +19,7 @@ const Logo = () => {
           alt="Logo"
           width={600}
           height={600}
-          className="size-12"
+          className="size-12 rounded-full"
         />
       </motion.div>
       <motion.div
