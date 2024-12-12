@@ -29,7 +29,7 @@ const DashboardButton: React.FC<DashboardButtonProps> = ({
     <>
       {Icon && <Icon className="w-5 h-5 mr-2 flex-shrink-0" />}
       <span className="text-left">
-        {text?.length > 15 ? text.substring(0, 20) + '...' : text}
+        {text?.length > 15 ? text.substring(0, 18) + '...' : text}
       </span>
     </>
   );

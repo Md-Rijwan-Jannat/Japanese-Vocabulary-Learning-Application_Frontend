@@ -43,6 +43,7 @@ import { toast } from 'sonner';
 import { Spinner } from '@/components/shared/spinner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TruncatedCell } from '../../ui/truncatedCell';
+import NoData from '@/components/shared/noData';
 
 export function UserManagementTable() {
   const [page, setPage] = useState(1);
@@ -180,6 +181,7 @@ export function UserManagementTable() {
               ))}
             </TableBody>
           </Table>
+          {data?.data?.length === 0 && <NoData />}
         </div>
       </CardContent>
       {totalPage > 1 && (

@@ -9,6 +9,7 @@ import { buttonStyle } from '@/style';
 import { useState } from 'react';
 import DynamicPagination from '@/components/shared/pagination';
 import BackButton from '@/components/shared/backButton';
+import { Spinner } from '@/components/shared/spinner';
 
 export default function Lessons() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,8 +25,8 @@ export default function Lessons() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-lg font-semibold">
-        Loading lessons...
+      <div>
+        <Spinner />
       </div>
     );
   }
@@ -51,14 +52,14 @@ export default function Lessons() {
     <div className="min-h-screen flex flex-col">
       <BackButton />
       <main className="flex-grow mx-auto px-4">
-        <h1 className="text-2xl text-blue-600 mt-5 mb-10 text-start drop-shadow-md">
-          Learn Japanese - Lessons
+        <h1 className="text-2xl font-bold text-purple-500 mt-5 mb-10 text-center drop-shadow-md">
+          Learn Japanese- Lessons
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {lessons.map((lesson: TLesson) => (
             <div key={lesson._id} className="relative group">
               {/* Gradient Background */}
-              <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-[150px] w-[200px] blur-2xl absolute "></div>
+              <div className="bg-gradient-to-r from-blue-300 to-purple-400 h-[150px] w-[200px] blur-2xl absolute "></div>
 
               {/* Backdrop Content */}
               <motion.div

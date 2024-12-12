@@ -15,6 +15,7 @@ import { TLesson } from '@/types';
 import { Spinner } from '@/components/shared/spinner';
 import { format } from 'date-fns';
 import { TruncatedCell } from '../../ui/truncatedCell';
+import NoData from '@/components/shared/noData';
 
 export default function CompleteLessonTable() {
   const limit = 6;
@@ -73,6 +74,7 @@ export default function CompleteLessonTable() {
               ))}
             </TableBody>
           </Table>
+          {lessons?.length === 0 && <NoData />}
         </div>
       </CardContent>
     </Card>

@@ -34,6 +34,7 @@ import { useRouter } from 'next/navigation';
 import { buttonStyle } from '@/style';
 import { Spinner } from '@/components/shared/spinner';
 import { TruncatedCell } from '../../ui/truncatedCell';
+import NoData from '@/components/shared/noData';
 
 export function LessonTable() {
   const [page, setPage] = useState(1);
@@ -131,6 +132,7 @@ export function LessonTable() {
               ))}
             </TableBody>
           </Table>
+          {lessons?.length === 0 && <NoData />}
         </div>
         {totalPage > 1 && (
           <DynamicPagination

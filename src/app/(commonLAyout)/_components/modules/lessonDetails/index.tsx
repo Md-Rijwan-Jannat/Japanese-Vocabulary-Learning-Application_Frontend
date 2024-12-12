@@ -17,6 +17,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { getUser } from '@/redux/features/authApi/authSlice';
 import { useGetMeQuery } from '@/redux/features/authApi/userApi';
 import { CircleCheckBig } from 'lucide-react';
+import { Spinner } from '@/components/shared/spinner';
 
 export default function LessonDetails({ lessonId }: { lessonId: string }) {
   const router = useRouter();
@@ -50,8 +51,8 @@ export default function LessonDetails({ lessonId }: { lessonId: string }) {
   // Handle loading and error states
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-lg font-semibold">
-        Loading lesson...
+      <div>
+        <Spinner />
       </div>
     );
   }

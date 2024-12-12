@@ -35,6 +35,7 @@ import { buttonStyle } from '@/style';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/shared/spinner';
 import { TruncatedCell } from '../../ui/truncatedCell';
+import NoData from '@/components/shared/noData';
 
 export function VocabularyTable() {
   const router = useRouter();
@@ -136,6 +137,7 @@ export function VocabularyTable() {
               ))}
             </TableBody>
           </Table>
+          {vocabularies?.length === 0 && <NoData />}
         </div>
         {totalPage > 1 && (
           <DynamicPagination

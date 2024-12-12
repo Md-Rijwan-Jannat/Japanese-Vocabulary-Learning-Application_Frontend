@@ -84,6 +84,10 @@ export default function ProfileMenubar() {
             <Video className="mr-2 h-4 w-4 text-purple-500" />
             <span>Tutorials</span>
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push('/setting')}>
+            <Settings className="mr-2 h-4 w-4 text-purple-500" />
+            <span>Setting</span>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => handleLogout()}>
             <LogOut className="mr-2 h-4 w-4 text-purple-500" />

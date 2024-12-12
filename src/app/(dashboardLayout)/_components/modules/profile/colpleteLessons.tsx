@@ -13,13 +13,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TLesson } from '@/types';
 import { format } from 'date-fns';
 import { TruncatedCell } from '../../ui/truncatedCell';
+import NoData from '@/components/shared/noData';
 
 export default function CompleteLessonTable({
   lessons,
 }: {
   lessons: TLesson[];
 }) {
-  console.log(lessons);
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -63,6 +63,7 @@ export default function CompleteLessonTable({
               ))}
             </TableBody>
           </Table>
+          {lessons?.length === 0 && <NoData />}
         </div>
       </CardContent>
     </Card>

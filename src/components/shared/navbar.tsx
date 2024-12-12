@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div className="relative border-b border-purple-500">
       <div className="bg-gradient-to-r from-blue-100 to-purple-200 h-[150px] w-full blur-2xl absolute "></div>
-      <nav className="text-primary-foreground p-2 md:p-4 backdrop-blur-3xl bg-white/50">
+      <nav className="text-primary-foreground px-2 py-4 md:p-4 backdrop-blur-3xl bg-white/50">
         <div className="flex justify-between items-center max-w-6xl mx-auto">
           <Logo />
 

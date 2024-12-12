@@ -22,11 +22,14 @@ const authApi = baseApi.injectEndpoints({
 
     // Update user information
     updateUser: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/users/${id}`,
-        method: 'PUT',
-        body: data,
-      }),
+      query: ({ id, data }) => {
+        console.log('check', id, data);
+        return {
+          url: `/users/${id}`,
+          method: 'PUT',
+          body: data,
+        };
+      },
       invalidatesTags: ['user'],
     }),
 

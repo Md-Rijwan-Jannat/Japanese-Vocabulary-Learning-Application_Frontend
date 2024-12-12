@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import LessonDetails from '../../_components/modules/lessonDetails';
+import { Spinner } from '@/components/shared/spinner';
 
 // interface TLessonDetailsPageProps {
 //   params: {
@@ -9,7 +10,14 @@ import LessonDetails from '../../_components/modules/lessonDetails';
 
 export default function LessonDetailsPage({ params }: any) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div>
+          {' '}
+          <Spinner />
+        </div>
+      }
+    >
       <LessonDetails lessonId={params.lessonId} />
     </Suspense>
   );
