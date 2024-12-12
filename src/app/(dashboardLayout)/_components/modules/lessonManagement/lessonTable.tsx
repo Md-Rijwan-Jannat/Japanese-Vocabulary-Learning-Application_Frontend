@@ -46,7 +46,7 @@ export function LessonTable() {
   if (isLoading) return <div className="text-center">Loading...</div>;
 
   const lessons = data?.data || [];
-  const { total, totalPage } = data?.meta || {};
+  const { totalPage } = data?.meta || {};
 
   const handleDelete = async (id: string) => {
     try {

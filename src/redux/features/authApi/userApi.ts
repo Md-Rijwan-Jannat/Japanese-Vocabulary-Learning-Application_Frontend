@@ -13,8 +13,8 @@ const authApi = baseApi.injectEndpoints({
 
     // Fetch all users
     getAllUsers: builder.query({
-      query: () => ({
-        url: '/users',
+      query: (query) => ({
+        url: '/users?' + query,
         method: 'GET',
       }),
       providesTags: ['user'],
@@ -41,11 +41,14 @@ const authApi = baseApi.injectEndpoints({
 
     // Update user role
     updateRole: builder.mutation({
-      query: ({ id, role }) => ({
-        url: `/users/${id}/role`,
-        method: 'PATCH',
-        body: { role },
-      }),
+      query: ({ id, role }) => {
+        console.log('check', id, role);
+        return {
+          url: `/users/${id}/role`,
+          method: 'PATCH',
+          body: { role: role },
+        };
+      },
       invalidatesTags: ['user'],
     }),
   }),

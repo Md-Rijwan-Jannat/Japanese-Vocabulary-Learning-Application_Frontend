@@ -7,6 +7,7 @@ import { MenuIcon } from 'lucide-react';
 import Logo from '@/components/shared/logo';
 import { getUser } from '@/redux/features/authApi/authSlice';
 import { useAppSelector } from '@/redux/hooks';
+import ProfileMenubar from '@/components/shared/profileMenubar';
 
 type NavbarProps = {
   onOpenDrawer: () => void;
@@ -28,16 +29,7 @@ export function Navbar({ onOpenDrawer }: NavbarProps) {
         </Button>
         <Logo />
         <div className="flex-1" />
-        <Avatar className="ring-2 ring-gray-500 cursor-pointer">
-          <AvatarImage
-            className="object-cover"
-            src={user?.photo || 'https://github.com/shadcn.png'}
-            alt={user?.name || 'User'}
-          />
-          <AvatarFallback className="text-gray-600">
-            {user?.name?.slice(0, 2)}
-          </AvatarFallback>
-        </Avatar>
+        <ProfileMenubar />
       </div>
     </div>
   );
