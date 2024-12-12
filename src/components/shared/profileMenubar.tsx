@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { clearCredentials, getUser } from '@/redux/features/authApi/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { Book, LogOut, Settings, Video } from 'lucide-react';
+import { Book, LogOut, Settings, User, Video } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
@@ -40,11 +40,14 @@ export default function ProfileMenubar() {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="w-52 backdrop-blur-md bg-white/40"
+          className="w-52 backdrop-blur-md bg-white/40 mt-1.5"
         >
           <DropdownMenuLabel>
             <div className="flex flex-col gap-2 items-center">
-              <Avatar className="ring-2 ring-gray-500 cursor-pointer">
+              <Avatar
+                onClick={() => router.push('/profile')}
+                className="ring-2 ring-gray-500 cursor-pointer"
+              >
                 <AvatarImage
                   className="object-cover"
                   src={user?.photo || 'https://github.com/shadcn.png'}
@@ -68,6 +71,10 @@ export default function ProfileMenubar() {
           >
             <Settings className={`mr-2 h-4 w-4 text-purple-500`} />
             <span>Dashboard</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push('/profile')}>
+            <User className="mr-2 h-4 w-4 text-purple-500" />
+            <span>Profile</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => router.push('/lessons')}>
             <Book className="mr-2 h-4 w-4 text-purple-500" />

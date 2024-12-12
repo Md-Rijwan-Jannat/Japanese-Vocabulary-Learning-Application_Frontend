@@ -1,0 +1,80 @@
+'use client';
+
+import React from 'react';
+import { useGetAllCompleteLessonsQuery } from '@/redux/features/lessonApi/lessonApi';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TLesson } from '@/types';
+import { Spinner } from '@/components/shared/spinner';
+import { format } from 'date-fns';
+import { TruncatedCell } from '../../ui/truncatedCell';
+
+export default function CompleteLessonTable() {
+  const limit = 6;
+  const { data, isLoading } = useGetAllCompleteLessonsQuery(
+    `limit=${limit}&sort=createdAt`
+  );
+
+  if (isLoading)
+    return (
+      <div className="text-center">
+        <Spinner />
+      </div>
+    );
+
+  const lessons = data?.data || [];
+  return (
+    <Card className="w-full max-w-4xl mx-auto">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="text-lg text-purple-500">
+          Resent Complete Lessons
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Number</TableHead>
+                <TableHead>Time</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {lessons.map((lesson: TLesson) => (
+                <TableRow key={lesson._id}>
+                  <TableCell className="font-medium">
+                    <TruncatedCell content={lesson.name} />
+                  </TableCell>
+                  <TableCell>
+                    <TruncatedCell content={`${lesson.number}`} />
+                  </TableCell>
+                  <TableCell>
+                    {/* date-fns time format */}
+                    <TruncatedCell
+                      content={format(lesson.createdAt, 'h:mm a')}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <div className="bg-green-100 rounded-md text-center text-green-500 p-0.5 border">
+                      {' '}
+                      <TruncatedCell content={'Complete'} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
