@@ -4,7 +4,7 @@ import { CreateVocabularyForm } from '../../_components/modules/addVocabulary/cr
 export default function AddVocabularyPage() {
   return (
     <div>
-      <CreateVocabularyForm />
+      <CreateVocabularyForm /> hello
     </div>
   );
 }

@@ -32,11 +32,14 @@ const tutorialsApi = baseApi.injectEndpoints({
 
     // Update an existing tutorial
     updateTutorial: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/tutorials/${id}`,
-        method: 'PATCH',
-        body: data,
-      }),
+      query: ({ id, data }) => {
+        console.log('data', data);
+        return {
+          url: `/tutorials/${id}`,
+          method: 'PATCH',
+          body: data,
+        };
+      },
       invalidatesTags: ['tutorials'],
     }),
 

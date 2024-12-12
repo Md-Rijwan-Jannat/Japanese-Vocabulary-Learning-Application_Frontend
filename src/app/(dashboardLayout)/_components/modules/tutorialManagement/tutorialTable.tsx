@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import {
-  useGetAllLessonsQuery,
-  useDeleteLessonMutation,
-} from '@/redux/features/lessonApi/lessonApi';
+  useGetAllTutorialsQuery,
+  useDeleteTutorialMutation,
+} from '@/redux/features/tutorialsApi/tutorialsApi';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -15,7 +15,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pencil, Plus, Trash2 } from 'lucide-react';
+import { Pencil, Trash2, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   AlertDialog,
@@ -27,51 +27,48 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { TLesson } from '@/types';
-import { EditLessonModal } from './editLessonModal';
+import { TTutorial } from '@/types';
 import DynamicPagination from '@/components/shared/pagination';
+import { EditTutorialModal } from './editTutorialsModal';
 import { useRouter } from 'next/navigation';
-import { buttonStyle } from '@/style';
 
-export function LessonTable() {
+export function TutorialTable() {
   const [page, setPage] = useState(1);
   const router = useRouter();
-  const [editingLesson, setEditingLesson] = useState<TLesson | null>(
-    null as TLesson | null
+  const [editingTutorial, setEditingTutorial] = useState<TTutorial | null>(
+    null
   );
   const limit = 6;
-  const [lessonToDelete, setLessonToDelete] = useState<TLesson | null>(null);
-  const { data, error, isLoading } = useGetAllLessonsQuery(
+  const [tutorialToDelete, setTutorialToDelete] = useState<TTutorial | null>(
+    null
+  );
+  const { data, error, isLoading } = useGetAllTutorialsQuery(
     `limit=${limit}&page=${page}&sort=createdAt`
   );
-  const [deleteLesson] = useDeleteLessonMutation();
+  const [deleteTutorial] = useDeleteTutorialMutation();
 
   if (isLoading) return <div className="text-center">Loading...</div>;
 
-  const lessons = data?.data || [];
+  const tutorials = data?.data || [];
   const { totalPage } = data?.meta || {};
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteLesson(id).unwrap();
-      toast.success('Lesson deleted successfully');
-      setLessonToDelete(null);
+      await deleteTutorial(id).unwrap();
+      toast.success('Tutorial deleted successfully');
+      setTutorialToDelete(null);
     } catch (error) {
-      toast.error('Failed to delete lesson');
+      toast.error('Failed to delete tutorial');
     }
   };
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-2xl font-bold">Lessons</CardTitle>
-        <Button
-          className={buttonStyle}
-          size={'sm'}
-          onClick={() => router.push('/admin-dashboard/add-lesson')}
-        >
+        <CardTitle className="text-2xl font-bold">Tutorials</CardTitle>
+        <Button onClick={() => router.push('/admin-dashboard/add-tutorial')}>
           <Plus className="h-4 w-4 mr-2" />
-          Create Lesson
+          Create Tutorial
         </Button>
       </CardHeader>
       <CardContent>
@@ -79,24 +76,28 @@ export function LessonTable() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Number</TableHead>
-                <TableHead>Created By</TableHead>
+                <TableHead>Title</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>Published</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {lessons.map((lesson: TLesson) => (
-                <TableRow key={lesson._id}>
-                  <TableCell className="font-medium">{lesson.name}</TableCell>
-                  <TableCell>{lesson.number}</TableCell>
-                  <TableCell>{lesson.createdBy.name}</TableCell>
+              {tutorials.map((tutorial: TTutorial) => (
+                <TableRow key={tutorial._id}>
+                  <TableCell className="font-medium">
+                    {tutorial.title}
+                  </TableCell>
+                  <TableCell>
+                    {tutorial.description.substring(0, 50)}...
+                  </TableCell>
+                  <TableCell>{tutorial.published ? 'Yes' : 'No'}</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setEditingLesson(lesson)}
+                        onClick={() => setEditingTutorial(tutorial)}
                       >
                         <Pencil className="h-4 w-4 mr-2" />
                         Edit
@@ -104,7 +105,7 @@ export function LessonTable() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setLessonToDelete(lesson)}
+                        onClick={() => setTutorialToDelete(tutorial)}
                       >
                         <Trash2 className="h-4 w-4 mr-2" />
                         Delete
@@ -124,31 +125,32 @@ export function LessonTable() {
           />
         )}
       </CardContent>
-      {editingLesson && (
-        <EditLessonModal
-          lesson={editingLesson}
-          onClose={() => setEditingLesson(null)}
+      {editingTutorial && (
+        <EditTutorialModal
+          tutorial={editingTutorial}
+          onClose={() => setEditingTutorial(null)}
         />
       )}
-      {lessonToDelete && (
+
+      {tutorialToDelete && (
         <AlertDialog
-          open={!!lessonToDelete}
-          onOpenChange={() => setLessonToDelete(null)}
+          open={!!tutorialToDelete}
+          onOpenChange={() => setTutorialToDelete(null)}
         >
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>
-                Are you sure you want to delete this lesson?
+                Are you sure you want to delete this tutorial?
               </AlertDialogTitle>
               <AlertDialogDescription>
                 This action cannot be undone. This will permanently delete the
-                lesson and remove its data from our servers.
+                tutorial and remove its data from our servers.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                onClick={() => handleDelete(lessonToDelete._id)}
+                onClick={() => handleDelete(tutorialToDelete._id)}
               >
                 Delete
               </AlertDialogAction>

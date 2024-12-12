@@ -34,6 +34,11 @@ export default function DashboardLayout({ children }: TDashboardLayoutProps) {
         text="Add Vocabulary"
       />
       <SecondaryButton
+        href="/admin-dashboard/add-tutorial"
+        icon={LayoutDashboard}
+        text="Add Tutorial"
+      />
+      <SecondaryButton
         href="/admin-dashboard/lesson-management"
         icon={BookOpen}
         text="Lessons Management"
