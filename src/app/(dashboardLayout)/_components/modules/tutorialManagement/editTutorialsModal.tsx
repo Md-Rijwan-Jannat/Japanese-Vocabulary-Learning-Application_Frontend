@@ -21,9 +21,9 @@ export function EditTutorialModal({
 }: EditTutorialModalProps) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
-          <DialogTitle>Edit Tutorial</DialogTitle>
+          <DialogTitle className="text-purple-500">Edit Tutorial</DialogTitle>
         </DialogHeader>
         <EditTutorialForm tutorial={tutorial} onClose={onClose} />
       </DialogContent>

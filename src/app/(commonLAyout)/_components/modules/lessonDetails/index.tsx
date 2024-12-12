@@ -152,9 +152,11 @@ export default function LessonDetails({ lessonId }: { lessonId: string }) {
                   {currentVocab.whenToSay}
                 </p>
               </motion.div>
-              <div className="border bg-green-100 border-green-500 px-3 py-2 rounded-md text-green-600 text-xl flex items-center justify-center gap-3 w-full md:w-1/2 mx-auto">
-                This lesson is complete <CircleCheckBig />{' '}
-              </div>
+              {isLessonComplete && (
+                <div className="border bg-green-100 border-green-500 px-3 py-2 rounded-md text-green-600 text-xl flex items-center justify-center gap-3 w-full md:w-1/2 mx-auto">
+                  This lesson is complete <CircleCheckBig />{' '}
+                </div>
+              )}
             </div>
           )}
         </AnimatePresence>

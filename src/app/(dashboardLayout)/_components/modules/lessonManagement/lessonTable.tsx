@@ -32,6 +32,8 @@ import { EditLessonModal } from './editLessonModal';
 import DynamicPagination from '@/components/shared/pagination';
 import { useRouter } from 'next/navigation';
 import { buttonStyle } from '@/style';
+import { Spinner } from '@/components/shared/spinner';
+import { TruncatedCell } from '../../ui/truncatedCell';
 
 export function LessonTable() {
   const [page, setPage] = useState(1);
@@ -46,7 +48,12 @@ export function LessonTable() {
   );
   const [deleteLesson] = useDeleteLessonMutation();
 
-  if (isLoading) return <div className="text-center">Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="text-center">
+        <Spinner />
+      </div>
+    );
 
   const lessons = data?.data || [];
   const { totalPage } = data?.meta || {};
@@ -71,7 +78,7 @@ export function LessonTable() {
           onClick={() => router.push('/admin-dashboard/add-lesson')}
         >
           <Plus className="h-4 w-4 mr-2" />
-          Create Lesson
+          Add Lesson
         </Button>
       </CardHeader>
       <CardContent>
@@ -88,9 +95,17 @@ export function LessonTable() {
             <TableBody>
               {lessons.map((lesson: TLesson) => (
                 <TableRow key={lesson._id}>
-                  <TableCell className="font-medium">{lesson.name}</TableCell>
-                  <TableCell>{lesson.number}</TableCell>
-                  <TableCell>{lesson.createdBy.name}</TableCell>
+                  <TableCell className="font-medium">
+                    <TruncatedCell content={lesson.name} />
+                  </TableCell>
+                  <TableCell>
+                    <div className="bg-purple-100 rounded-md text-center text-purple-500 p-0.5 border">
+                      <TruncatedCell content={`${lesson.number}`} />
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <TruncatedCell content={lesson.createdBy.name} />
+                  </TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button
@@ -98,15 +113,16 @@ export function LessonTable() {
                         size="sm"
                         onClick={() => setEditingLesson(lesson)}
                       >
-                        <Pencil className="h-4 w-4 mr-2" />
+                        <Pencil className="h-4 w-4" />
                         Edit
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => setLessonToDelete(lesson)}
+                        className="text-red-600 hover:bg-red-500 hover:text-white"
                       >
-                        <Trash2 className="h-4 w-4 mr-2" />
+                        <Trash2 className="h-4 w-4 mb-0.5" />
                         Delete
                       </Button>
                     </div>
@@ -137,7 +153,7 @@ export function LessonTable() {
         >
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>
+              <AlertDialogTitle className="text-purple-500">
                 Are you sure you want to delete this lesson?
               </AlertDialogTitle>
               <AlertDialogDescription>
@@ -146,8 +162,11 @@ export function LessonTable() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="text-purple-500 hover:bg-purple-100 hover:text-purple-600">
+                Cancel
+              </AlertDialogCancel>
               <AlertDialogAction
+                className="text-red-600 bg-white border hover:bg-red-500 hover:text-white"
                 onClick={() => handleDelete(lessonToDelete._id)}
               >
                 Delete

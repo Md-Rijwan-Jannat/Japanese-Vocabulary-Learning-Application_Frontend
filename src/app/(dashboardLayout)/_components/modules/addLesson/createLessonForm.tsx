@@ -48,8 +48,8 @@ export function CreateLessonForm() {
   };
 
   return (
-    <div className="relative">
-      <div className="bg-gradient-to-r from-blue-400 to-purple-500 absolute h-[130px] w-[350px] blur-3xl mt-10"></div>
+    <div className="relative flex items-center justify-center mt-10 md:mt-0">
+      <div className="bg-gradient-to-r from-blue-300 to-purple-300 absolute h-[130px] w-[350px] blur-3xl mt-10"></div>
       <Card className="w-full mx-auto bg-white/20 backdrop-blur-3xl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">

@@ -57,8 +57,8 @@ export function CreateTutorialForm() {
   };
 
   return (
-    <div className="relative">
-      <div className="bg-gradient-to-r from-blue-400 to-purple-500 absolute h-[130px] w-[350px] blur-3xl mt-10"></div>
+    <div className="relative flex items-center justify-center mt-10 md:mt-0">
+      <div className="bg-gradient-to-r from-blue-300 to-purple-300 absolute h-[130px] w-[350px] blur-3xl mt-10"></div>
       <Card className="w-full mx-auto bg-white/20 backdrop-blur-3xl">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
@@ -131,7 +131,7 @@ export function CreateTutorialForm() {
                   required: 'Description is required',
                 })}
                 placeholder="e.g. This tutorial teaches you how to count in Japanese, from 1 to 100, with pronunciation tips."
-                className="w-full px-2 bg-white/20"
+                className="w-full px-2"
                 rows={4}
               />
               {errors.description && (
@@ -158,7 +158,7 @@ export function CreateTutorialForm() {
             <CardFooter className="px-0 pt-4">
               <Button
                 type="submit"
-                className={`${buttonStyle} w-full`}
+                className={`${buttonStyle} mx-auto`}
                 disabled={isLoading}
               >
                 {isLoading ? 'Creating...' : 'Create Tutorial'}

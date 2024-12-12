@@ -19,9 +19,9 @@ export function EditVocabularyModal({
 }: EditVocabularyModalProps) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
-          <DialogTitle>Edit Vocabulary</DialogTitle>
+          <DialogTitle className="text-purple-500">Edit Vocabulary</DialogTitle>
         </DialogHeader>
         <EditVocabularyForm vocabulary={vocabulary} onClose={onClose} />
       </DialogContent>

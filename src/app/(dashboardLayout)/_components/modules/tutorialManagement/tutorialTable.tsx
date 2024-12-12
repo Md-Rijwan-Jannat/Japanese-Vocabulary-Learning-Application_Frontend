@@ -31,6 +31,9 @@ import { TTutorial } from '@/types';
 import DynamicPagination from '@/components/shared/pagination';
 import { EditTutorialModal } from './editTutorialsModal';
 import { useRouter } from 'next/navigation';
+import { buttonStyle } from '@/style';
+import { Spinner } from '@/components/shared/spinner';
+import { TruncatedCell } from '../../ui/truncatedCell';
 
 export function TutorialTable() {
   const [page, setPage] = useState(1);
@@ -47,7 +50,12 @@ export function TutorialTable() {
   );
   const [deleteTutorial] = useDeleteTutorialMutation();
 
-  if (isLoading) return <div className="text-center">Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="text-center">
+        <Spinner />
+      </div>
+    );
 
   const tutorials = data?.data || [];
   const { totalPage } = data?.meta || {};
@@ -66,9 +74,13 @@ export function TutorialTable() {
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-2xl font-bold">Tutorials</CardTitle>
-        <Button onClick={() => router.push('/admin-dashboard/add-tutorial')}>
+        <Button
+          className={buttonStyle}
+          size={'sm'}
+          onClick={() => router.push('/admin-dashboard/add-tutorial')}
+        >
           <Plus className="h-4 w-4 mr-2" />
-          Create Tutorial
+          Add Tutorial
         </Button>
       </CardHeader>
       <CardContent>
@@ -86,12 +98,17 @@ export function TutorialTable() {
               {tutorials.map((tutorial: TTutorial) => (
                 <TableRow key={tutorial._id}>
                   <TableCell className="font-medium">
-                    {tutorial.title}
+                    <TruncatedCell content={tutorial.title} />
                   </TableCell>
                   <TableCell>
-                    {tutorial.description.substring(0, 50)}...
+                    <TruncatedCell content={tutorial.description} />
                   </TableCell>
-                  <TableCell>{tutorial.published ? 'Yes' : 'No'}</TableCell>
+                  <TableCell>
+                    {' '}
+                    <TruncatedCell
+                      content={tutorial.published ? 'Yes' : 'No'}
+                    />
+                  </TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button
@@ -99,15 +116,16 @@ export function TutorialTable() {
                         size="sm"
                         onClick={() => setEditingTutorial(tutorial)}
                       >
-                        <Pencil className="h-4 w-4 mr-2" />
+                        <Pencil className="h-4 w-4" />
                         Edit
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => setTutorialToDelete(tutorial)}
+                        className="text-red-600 hover:bg-red-500 hover:text-white"
                       >
-                        <Trash2 className="h-4 w-4 mr-2" />
+                        <Trash2 className="h-4 w-4 mb-0.5" />
                         Delete
                       </Button>
                     </div>
@@ -139,7 +157,7 @@ export function TutorialTable() {
         >
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>
+              <AlertDialogTitle className="text-purple-500">
                 Are you sure you want to delete this tutorial?
               </AlertDialogTitle>
               <AlertDialogDescription>
@@ -148,8 +166,11 @@ export function TutorialTable() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="text-purple-500 hover:bg-purple-100 hover:text-purple-600">
+                Cancel
+              </AlertDialogCancel>
               <AlertDialogAction
+                className="text-red-600 bg-white border hover:bg-red-500 hover:text-white"
                 onClick={() => handleDelete(tutorialToDelete._id)}
               >
                 Delete

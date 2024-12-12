@@ -15,7 +15,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Plus, Trash2 } from 'lucide-react';
 import DynamicPagination from '@/components/shared/pagination';
 import { toast } from 'sonner';
 import {
@@ -28,10 +28,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+
 import { TVocabulary } from '@/types';
 import { EditVocabularyModal } from './editVocabularyModal';
+import { buttonStyle } from '@/style';
+import { useRouter } from 'next/navigation';
+import { Spinner } from '@/components/shared/spinner';
+import { TruncatedCell } from '../../ui/truncatedCell';
 
 export function VocabularyTable() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const [editingVocabulary, setEditingVocabulary] =
     useState<TVocabulary | null>(null);
@@ -43,7 +49,12 @@ export function VocabularyTable() {
   );
   const [deleteVocabulary] = useDeleteVocabularyMutation();
 
-  if (isLoading) return <div className="text-center">Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="text-center">
+        <Spinner />
+      </div>
+    );
 
   const vocabularies = data?.data || ([] as TVocabulary[]);
   const { totalPage } = data?.meta || {};
@@ -61,9 +72,17 @@ export function VocabularyTable() {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
+    <Card className="w-full mx-auto">
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-2xl font-bold">Vocabularies</CardTitle>
+        <Button
+          className={buttonStyle}
+          size={'sm'}
+          onClick={() => router.push('/admin-dashboard/add-vocabulary')}
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Add Vocabulary
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
@@ -81,11 +100,17 @@ export function VocabularyTable() {
               {vocabularies.map((vocabulary: TVocabulary) => (
                 <TableRow key={vocabulary._id}>
                   <TableCell className="font-medium">
-                    {vocabulary.word}
+                    <TruncatedCell content={vocabulary.word} />
                   </TableCell>
-                  <TableCell>{vocabulary.pronunciation}</TableCell>
-                  <TableCell>{vocabulary.meaning}</TableCell>
-                  <TableCell>{vocabulary.lesson?.name}</TableCell>
+                  <TableCell>
+                    <TruncatedCell content={vocabulary.pronunciation} />
+                  </TableCell>
+                  <TableCell>
+                    <TruncatedCell content={vocabulary.meaning} />
+                  </TableCell>
+                  <TableCell>
+                    <TruncatedCell content={vocabulary.lesson?.name || ''} />
+                  </TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button
@@ -93,15 +118,16 @@ export function VocabularyTable() {
                         size="sm"
                         onClick={() => setEditingVocabulary(vocabulary)}
                       >
-                        <Pencil className="h-4 w-4 mr-2" />
+                        <Pencil className="h-4 w-4 mr-1" />
                         Edit
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => setVocabularyToDelete(vocabulary)}
+                        className="text-red-600 hover:bg-red-500 hover:text-white"
                       >
-                        <Trash2 className="h-4 w-4 mr-2" />
+                        <Trash2 className="h-4 w-4 mr-1" />
                         Delete
                       </Button>
                     </div>
@@ -132,7 +158,7 @@ export function VocabularyTable() {
         >
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>
+              <AlertDialogTitle className="text-purple-500">
                 Are you sure you want to delete this vocabulary?
               </AlertDialogTitle>
               <AlertDialogDescription>
@@ -141,8 +167,11 @@ export function VocabularyTable() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel className="text-purple-500 hover:bg-purple-100 hover:text-purple-600">
+                Cancel
+              </AlertDialogCancel>
               <AlertDialogAction
+                className="text-green-600 bg-green-100 border hover:bg-green-500 hover:text-white"
                 onClick={() => handleDelete(vocabularyToDelete._id)}
               >
                 Delete

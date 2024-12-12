@@ -65,11 +65,20 @@ export function EditLessonForm({ lesson, onClose }: EditLessonFormProps) {
         )}
       </div>
       <div className="flex justify-end space-x-2">
-        <Button type="button" variant="outline" onClick={onClose}>
+        <Button
+          className="text-purple-500 hover:bg-purple-100 hover:text-purple-600"
+          type="button"
+          variant="outline"
+          onClick={onClose}
+        >
           Cancel
         </Button>
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Updating...' : 'Update Lesson'}
+        <Button
+          className="text-green-600 bg-green-100 border hover:bg-green-500 hover:text-white"
+          type="submit"
+          disabled={isLoading}
+        >
+          {isLoading ? 'Saving...' : 'Save'}
         </Button>
       </div>
     </form>

@@ -40,6 +40,9 @@ import DynamicPagination from '@/components/shared/pagination';
 import { getUser } from '@/redux/features/authApi/authSlice';
 import { useAppSelector } from '@/redux/hooks';
 import { toast } from 'sonner';
+import { Spinner } from '@/components/shared/spinner';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TruncatedCell } from '../../ui/truncatedCell';
 
 export function UserManagementTable() {
   const [page, setPage] = useState(1);
@@ -56,8 +59,8 @@ export function UserManagementTable() {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div>
+        <Spinner />
       </div>
     );
   }
@@ -89,76 +92,96 @@ export function UserManagementTable() {
   };
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-5">Manage Users</h1>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data?.data.map((user: TUser) => (
-            <TableRow key={user._id}>
-              <TableCell className="flex items-center space-x-2">
-                <Avatar>
-                  <AvatarImage
-                    className="object-cover"
-                    src={user.photo}
-                    alt={user.name}
-                  />
-                  <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <span>{user.name}</span>
-              </TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>
-                <Select
-                  defaultValue={user.role}
-                  onValueChange={(value) => handleRoleChange(user._id, value)}
-                >
-                  <SelectTrigger className="w-[100px]">
-                    <SelectValue placeholder="Select role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="user">User</SelectItem>
-                    <SelectItem value="admin">Admin</SelectItem>
-                  </SelectContent>
-                </Select>
-              </TableCell>
-              <TableCell>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="destructive" size="sm">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete the user account.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={() => handleDeleteUser(user._id)}
-                      >
-                        Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+    <Card className="w-full max-w-4xl mx-auto">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <CardTitle className="text-2xl font-bold">Manage Users</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data?.data.map((user: TUser) => (
+                <TableRow key={user._id}>
+                  <TableCell className="flex items-center space-x-2">
+                    <Avatar>
+                      <AvatarImage
+                        className="object-cover"
+                        src={user.photo}
+                        alt={user.name}
+                      />
+                      <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <TruncatedCell content={user.name} />
+                  </TableCell>
+                  <TableCell>
+                    <TruncatedCell content={user.email} />
+                  </TableCell>
+                  <TableCell>
+                    <Select
+                      defaultValue={user.role}
+                      onValueChange={(value) =>
+                        handleRoleChange(user._id, value)
+                      }
+                    >
+                      <SelectTrigger className="w-[100px] h-[36px] px-2">
+                        <SelectValue placeholder="Select role" />
+                      </SelectTrigger>
+                      <SelectContent className="w-[100px] ">
+                        <SelectItem value="user">User</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </TableCell>
+                  <TableCell>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="text-red-600 hover:bg-red-500 hover:text-white"
+                        >
+                          <Trash2 className="h-4 w-4 mr-1" />
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle className="text-purple-500">
+                            Are you sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete the user account.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel className="text-purple-500 hover:bg-purple-100 hover:text-purple-600">
+                            Cancel
+                          </AlertDialogCancel>
+                          <AlertDialogAction
+                            className="text-red-600 bg-white border hover:bg-red-500 hover:text-white"
+                            onClick={() => handleDeleteUser(user._id)}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </CardContent>
       {totalPage > 1 && (
         <DynamicPagination
           currentPage={page}
@@ -166,6 +189,6 @@ export function UserManagementTable() {
           onPageChange={setPage}
         />
       )}
-    </div>
+    </Card>
   );
 }

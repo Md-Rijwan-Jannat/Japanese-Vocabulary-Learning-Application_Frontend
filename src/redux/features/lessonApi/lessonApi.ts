@@ -11,6 +11,15 @@ const lessonApi = baseApi.injectEndpoints({
       providesTags: ['lessons'],
     }),
 
+    // Fetch all complete lessons
+    getAllCompleteLessons: builder.query({
+      query: (query) => ({
+        url: `/lessons/complete?${query}`,
+        method: 'GET',
+      }),
+      providesTags: ['lessons'],
+    }),
+
     // Fetch a single lesson by ID
     getLessonById: builder.query({
       query: (id) => ({
@@ -63,6 +72,7 @@ const lessonApi = baseApi.injectEndpoints({
 // Exporting the hooks to use in components
 export const {
   useGetAllLessonsQuery,
+  useGetAllCompleteLessonsQuery,
   useGetLessonByIdQuery,
   useCreateLessonMutation,
   useCompleteLessonMutation,

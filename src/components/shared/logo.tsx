@@ -19,7 +19,7 @@ const Logo = () => {
           alt="Logo"
           width={600}
           height={600}
-          className="size-12 rounded-full"
+          className="size-10 md:size-12 rounded-full"
         />
       </motion.div>
       <motion.div
@@ -28,11 +28,11 @@ const Logo = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <p className="text-2xl font-bold text-blue-500 leading-none tracking-wider">
+        <p className="text-xl md:text-2xl font-bold text-blue-500 leading-none tracking-wider">
           Learn
         </p>
         <motion.p
-          className="text-xl font-semibold text-purple-500 leading-none tracking-widest"
+          className="text-lg md:text-xl font-semibold text-purple-500 leading-none tracking-widest"
           initial={{ scale: 0.9 }}
         >
           Japanese
